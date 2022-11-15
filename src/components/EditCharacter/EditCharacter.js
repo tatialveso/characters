@@ -1,18 +1,34 @@
-import { useState } from "react"
+import axios from "axios";
+import { useEffect, useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
+import { useNavigate } from "react-router-dom";
 
-function EditCharacter() {
+function EditCharacter({ id, apiURL, form, setForm }) {
+    const navigate = useNavigate()
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    useEffect(() => {
+        axios.get(`${apiURL}/${id}`)
+        .then(response => setForm(response.data))
+    }, [])
+
     const handleChange = (e) => {
-        
+        setForm({...form, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            await axios.put(`${apiURL}/${id}`, form)
+            setShow(false)
+            navigate("/")
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -32,6 +48,7 @@ function EditCharacter() {
                                 type="text"
                                 name="name"
                                 onChange={handleChange}
+                                value={ form.name }
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -40,6 +57,7 @@ function EditCharacter() {
                                 type="text"
                                 name="occupation"
                                 onChange={handleChange}
+                                value={ form.occupation }
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -48,6 +66,7 @@ function EditCharacter() {
                                 type="text"
                                 name="weapon"
                                 onChange={handleChange}
+                                value={ form.weapon }
                             />
                         </Form.Group>
                         <Button type="submit">Cadastrar</Button>

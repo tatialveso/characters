@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <CharacterList apiURL={ apiURL } /> } />
         <Route path="/cadastrar" element={ <AddCharacter apiURL={ apiURL } form={ form } setForm={ setForm } /> } />
-        <Route path="/personagem/:id" element={ <CharacterDetails /> } />
+        <Route path="/personagem/:id" element={ <CharacterDetails apiURL={ apiURL } form={ form } setForm={ setForm } /> } />
       </Routes>
     </div>
   );

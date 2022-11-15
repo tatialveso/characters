@@ -19,7 +19,9 @@ function CharacterList({ apiURL }) {
             <Col key={character.id}>
                 <Card style={{ width: '18rem' }}>
                     <Card.Body>
-                        <Card.Title>{character.name}</Card.Title>
+                        <Card.Title>
+                            <Link className="nav-link" to={`/personagem/${character.id}`}>{character.name}</Link>
+                        </Card.Title>
                     </Card.Body>
                 </Card>
             </Col>
