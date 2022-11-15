@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from "axios"
 import { useEffect, useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
-function EditCharacter({ id, apiURL, form, setForm }) {
+function EditCharacter({ form, setForm, apiURL, id }) {
     const navigate = useNavigate()
     const [show, setShow] = useState(false);
 
@@ -12,11 +12,11 @@ function EditCharacter({ id, apiURL, form, setForm }) {
 
     useEffect(() => {
         axios.get(`${apiURL}/${id}`)
-        .then(response => setForm(response.data))
+            .then(response => setForm(response.data))
     }, [])
 
-    const handleChange = (e) => {
-        setForm({...form, [e.target.name]: e.target.value})
+    function handleChange(e) {
+        setForm({ ...form, [e.target.name]: e.target.value });
     }
 
     const handleSubmit = async (e) => {
@@ -24,11 +24,13 @@ function EditCharacter({ id, apiURL, form, setForm }) {
 
         try {
             await axios.put(`${apiURL}/${id}`, form)
+
             setShow(false)
             navigate("/")
         } catch (error) {
             console.log(error)
         }
+
     }
 
     return (
@@ -48,7 +50,8 @@ function EditCharacter({ id, apiURL, form, setForm }) {
                                 type="text"
                                 name="name"
                                 onChange={handleChange}
-                                value={ form.name }
+                                value={form.name}
+                                placeholder=""
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -57,7 +60,7 @@ function EditCharacter({ id, apiURL, form, setForm }) {
                                 type="text"
                                 name="occupation"
                                 onChange={handleChange}
-                                value={ form.occupation }
+                                value={form.occupation}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -66,7 +69,7 @@ function EditCharacter({ id, apiURL, form, setForm }) {
                                 type="text"
                                 name="weapon"
                                 onChange={handleChange}
-                                value={ form.weapon }
+                                value={form.weapon}
                             />
                         </Form.Group>
                         <Button type="submit">Cadastrar</Button>
