@@ -1,7 +1,31 @@
-import { Button, Container, Row } from "react-bootstrap"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { Button, Card, Col, Container, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
-function CharacterList() {
+function CharacterList({ apiURL }) {
+    const [characters, setCharacters] = useState([])
+
+    useEffect(() => {
+        axios.get(apiURL)
+            .then(response => {
+               setCharacters(response.data)
+            })
+            .catch(error => console.log(error))
+    }, [])
+
+    const renderCharacters = characters.map((character) => {
+        return (
+            <Col key={character.id}>
+                <Card style={{ width: '18rem' }}>
+                    <Card.Body>
+                        <Card.Title>{character.name}</Card.Title>
+                    </Card.Body>
+                </Card>
+            </Col>
+        )
+    })
+
     return (
         <Container>
             <Row>
@@ -10,7 +34,7 @@ function CharacterList() {
                 </Button>
             </Row>
             <Row className="d-flex justify-content-center">
-                
+                { renderCharacters }
             </Row>
         </Container>
     )
