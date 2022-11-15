@@ -1,26 +1,18 @@
-import axios from "axios"
 import { useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
 
-function EditCharacter({ form, setForm, apiURL, id }) {
-    const navigate = useNavigate()
+function EditCharacter() {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    function handleChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
+    const handleChange = (e) => {
+        
     }
 
-    async function handleSubmit(e) {
-        e.preventDefault()
-
-        await axios.put(`${apiURL}/${id}`, form)
+    const handleSubmit = () => {
         
-        setShow(false)
-        navigate("/")
     }
 
     return (
@@ -40,7 +32,6 @@ function EditCharacter({ form, setForm, apiURL, id }) {
                                 type="text"
                                 name="name"
                                 onChange={handleChange}
-                                value={form.name}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -49,7 +40,6 @@ function EditCharacter({ form, setForm, apiURL, id }) {
                                 type="text"
                                 name="occupation"
                                 onChange={handleChange}
-                                value={form.occupation}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -58,7 +48,6 @@ function EditCharacter({ form, setForm, apiURL, id }) {
                                 type="text"
                                 name="weapon"
                                 onChange={handleChange}
-                                value={form.weapon}
                             />
                         </Form.Group>
                         <Button type="submit">Cadastrar</Button>
