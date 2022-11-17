@@ -13,7 +13,7 @@ function CharacterList({ apiURL, characters, setCharacters }) {
                 setFetching(false)
             })
             .catch(error => console.log(error))
-    }, [])
+    }, [apiURL, setCharacters])
 
 
 

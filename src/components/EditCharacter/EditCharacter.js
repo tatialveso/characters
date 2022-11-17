@@ -13,7 +13,7 @@ function EditCharacter({ form, setForm, apiURL, id }) {
     useEffect(() => {
         axios.get(`${apiURL}/${id}`)
             .then(response => setForm(response.data))
-    }, [])
+    }, [apiURL, id, setForm])
 
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value });

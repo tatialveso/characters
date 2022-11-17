@@ -18,7 +18,7 @@ function CharacterDetails({ apiURL, form, setForm }) {
                 setFetching(false)
             })
             .catch(error => console.log(error))
-    }, [id])
+    }, [apiURL, id])
 
     const deleteCharacter = async (id) => {
         await axios.delete(`${apiURL}/${id}`)
